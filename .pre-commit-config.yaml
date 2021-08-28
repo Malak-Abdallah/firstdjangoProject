@@ -1,0 +1,27 @@
+repos: # only add this if you don't have some repos in config already
+    -   repo: https://github.com/remastr/pre-commit-django-check-migrations
+        rev: v0.1.0
+        hooks:
+        -   id: check-migrations-created
+            args: [
+                --exec-command=poetry run python,
+                --manage-path=sample_project/manage.py
+            ]
+
+    -   repo: https://github.com/ecugol/pre-commit-hooks-django
+        rev: v0.3.0  # Use the ref you want to point at
+        hooks:
+        -   id: check-untracked-migrations
+            # Optional, if specified, hook will work only on these branches
+            # otherwise it will work on all branches
+            args: ["--branches", "main", "other_branch"]
+        -   id: check-unapplied-migrations
+        -   id: po-location-format
+            # Mandatory, select one of the following options:
+            # file: show only the file path as location
+            # never: remove all locations
+            args: ["--add-location", "file"]
+    -   repo: https://gitlab.com/pycqa/flake8
+        rev: 3.8.4
+        hooks:
+        -    id: flake8
